@@ -22,7 +22,7 @@ identifier  ({letter}|"_")({letter}|{digit}|"_")*
 
 bool        { printf("%s\t关键字\n", yytext); } 
 break       { printf("%s\t关键字\n", yytext); }
-contiue     { printf("%s\t关键字\n", yytext); }
+continue     { printf("%s\t关键字\n", yytext); }
 class       { printf("%s\t关键字\n", yytext); } 
 double      { printf("%s\t关键字\n", yytext); }
 else        { printf("%s\t关键字\n", yytext); } 
@@ -44,7 +44,7 @@ include     { printf("%s\t关键字\n", yytext); }
 main        { printf("%s\t关键字\n", yytext); }
 true|false  { printf("%s\t关键字\n", yytext);} 
 
-"+"         { printf("+\t运算法\n"); }
+"+"         { printf("+\t运算符\n"); }
 "-"         { printf("-\t运算符\n"); }
 "*"         { printf("*\t运算符\n"); }
 "/"         { printf("/\t运算符\n"); }
@@ -73,6 +73,8 @@ true|false  { printf("%s\t关键字\n", yytext);}
 "~"         { printf("~\t运算符\n"); }
 "<<"        { printf("<<\t运算符\n"); }
 ">>"        { printf(">>\t运算符\n"); }
+"++"        { printf("++\t运算符\n"); }
+"--"        { printf("--\t运算符\n"); }
 
 
 "#"         { printf("#\t预处理符号\n"); }

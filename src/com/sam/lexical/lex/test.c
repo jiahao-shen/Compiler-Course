@@ -7,7 +7,7 @@ int main() {
         printf("Hello %d", a);
     }
     if (true) {
-        char b = 'b';
+        char b = 'a';
     }
     return 0;
 }

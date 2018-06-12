@@ -3,9 +3,9 @@ package com.sam.grammar
 import java.util.*
 
 class Production(private var productions: ArrayList<Grammar>) {
-    private val symbols = ArrayList<Char>()        //初始产生式非终结符
-    private val nonTerminatingSymbol = TreeSet<String>() //LL(1)文法非终结符
-    private val terminatingSymbol = TreeSet<String>()    //LL(1)文法终结符
+    private val symbols = ArrayList<Char>()
+    private val nonTerminatingSymbol = TreeSet<String>()
+    private val terminatingSymbol = TreeSet<String>()
 
     init {
         symbolProductions()
@@ -19,6 +19,7 @@ class Production(private var productions: ArrayList<Grammar>) {
             removeLeftRecursion(symbols[i])
         }
         noOrIsTerminatingSymbol()
+        output()
     }
 
     private fun symbolProductions() {
@@ -131,23 +132,15 @@ class Production(private var productions: ArrayList<Grammar>) {
         }
     }
 
-    override fun toString(): String {
-        var temp = "非终结符: "
-        for (item in nonTerminatingSymbol) {
-            temp += "$item "
+    private fun output() {
+        println("非终结符: $nonTerminatingSymbol")
+        println("终结符: $terminatingSymbol")
+        println("消除左递归后的文法:")
+        for (item in productions) {
+            println(item)
         }
-        temp += "  共计:" + nonTerminatingSymbol.size
-        temp += "\n终结符: "
-        for (item in terminatingSymbol) {
-            temp += "$item  "
-        }
-        temp += "  共计:" + terminatingSymbol.size
-        temp += "\n消除左递归后的文法:\n"
-        for (i in productions.indices) {
-            temp += productions[i].toString() + "\n"
-        }
-        return temp
     }
+
 }
 
 fun main(args: Array<String>) {
@@ -160,5 +153,4 @@ fun main(args: Array<String>) {
     grammarList.add(Grammar("F", "(E)|i"))
     val production = Production(grammarList)
     production.removeLeftRecursion()
-    print(production)
 }
