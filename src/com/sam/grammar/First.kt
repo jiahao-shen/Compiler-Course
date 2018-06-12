@@ -26,7 +26,7 @@ class First(private var mp: Map<String, Array<String>>) {
                     if (mp.containsKey(nextNode)) {
                         val tempSet = findFirst(nextNode, mp[nextNode]!!)
                         st.addAll(tempSet)
-                        if (!tempSet.contains('$'))
+                        if (!tempSet.contains('ε'))
                             break
                     }
                 }
@@ -54,12 +54,12 @@ class First(private var mp: Map<String, Array<String>>) {
 fun main(args: Array<String>) {
     val rightLinearGrammar = arrayOf(
             "E->TE\'",
-            "E\'->+TE\'|$",
+            "E\'->+TE\'|ε",
             "T->FT\'",
-            "T\'->*FT\'|$",
+            "T\'->*FT\'|ε",
             "F->(E)|i"
     )
-//    val rightLinearGrammar = arrayOf("S->ABc", "A->a|$", "B->b")
+//    val rightLinearGrammar = arrayOf("S->ABc", "A->a|ε", "B->b")
     val mp = LinkedHashMap<String, Array<String>>()
     try {
         for (i in rightLinearGrammar.indices) {

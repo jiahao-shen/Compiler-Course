@@ -1,5 +1,7 @@
 package com.sam.lexical
 
+import java.util.*
+
 class MinimumDFA(private var newFinalState: BooleanArray, private var allNodes: ArrayList<Edge>, private var dfaNode: Int, private var characterSet: Set<Char>) {
     private var setList = ArrayList<Set<Int>>()
 
@@ -64,10 +66,7 @@ class MinimumDFA(private var newFinalState: BooleanArray, private var allNodes: 
                 }
             }
         }
-//        for (item in setList) {
-//            println(item)
-//        }
-//        println("-----------------------------------")
+
         for (k in setList.indices) {
             val st = setList[k]
             if (st.size > 1) {
@@ -93,16 +92,32 @@ class MinimumDFA(private var newFinalState: BooleanArray, private var allNodes: 
 
     fun outputMinimumDFA() {
         toMinimumDFA()
+        allNodes.sortWith(Comparator { o1, o2 ->
+            if (o1.u == o2.u)
+                o1.v - o2.v
+            else
+                o1.u - o2.u
+        })
         for (item in allNodes)
             println(item)
     }
 }
 
 fun main(args: Array<String>) {
-    val regex = "0*(100*)*0*"
-    val nfa = NFA(regex)
-    val dfa = DFA(nfa.getNFAGraphics(), nfa.characterSet, nfa.finalState)
-    dfa.toStateMatrix()
-    val minimumDFA = MinimumDFA(dfa.newFinalState, dfa.allNodes, dfa.dfaNode, dfa.characterSet)
-    minimumDFA.outputMinimumDFA()
+
+    val regexList = ArrayList<String>()
+    regexList.add("0*(100*)*0*")
+    regexList.add("1(1010*|1(010)*1)*0")
+    regexList.add("1(0|1)*101")
+    regexList.add("0*1*(010)0*1*")
+    for (regex in regexList) {
+        val nfa = NFA(regex)
+        val dfa = DFA(nfa.getNFAGraphics(), nfa.characterSet, nfa.finalState)
+        dfa.toStateMatrix()
+        val minimumDFA = MinimumDFA(dfa.newFinalState, dfa.allNodes, dfa.dfaNode, dfa.characterSet)
+        println(regex)
+        println("对应的最小化DFA如下:")
+        minimumDFA.outputMinimumDFA()
+        println()
+    }
 }

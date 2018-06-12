@@ -18,7 +18,7 @@ class Follow(private var mp: Map<String, Array<String>>, private var first: Map<
             st.add(nextNode[0])
         } else {
             st.addAll(first[nextNode]!!)
-            if (first[nextNode]!!.contains('$'))
+            if (first[nextNode]!!.contains('ε'))
                 getFirstSet(st, node, k + 1)
         }
     }
@@ -51,8 +51,8 @@ class Follow(private var mp: Map<String, Array<String>>, private var first: Map<
                             nextNode += '\''.toString()
                             ++index
                         }
-                        if (mp.containsKey(nextNode)) {//非终结符
-                            if (first[nextNode]!!.contains('$')) {//A->@B&, 而 &->$
+                        if (mp.containsKey(nextNode)) {
+                            if (first[nextNode]!!.contains('ε')) {
                                 if (follow[leftNode] == null)
                                     findFollow(leftNode)
                                 if (follow[currentNode] == null) {
@@ -66,7 +66,7 @@ class Follow(private var mp: Map<String, Array<String>>, private var first: Map<
                             run {
                                 val tempSet = TreeSet<Char>()
                                 getFirstSet(tempSet, rightNodes[i], index)
-                                tempSet.remove('$')
+                                tempSet.remove('ε')
                                 if (follow[currentNode] == null) {
                                     st = TreeSet()
                                     st!!.addAll(tempSet)
@@ -115,15 +115,15 @@ class Follow(private var mp: Map<String, Array<String>>, private var first: Map<
 fun main(args: Array<String>) {
     val rightLinearGrammar = arrayOf(
             "E->TE\'",
-            "E\'->+TE\'|$",
+            "E\'->+TE\'|ε",
             "T->FT\'",
-            "T\'->*FT\'|$",
+            "T\'->*FT\'|ε",
             "F->(E)|i"
     )
 //    val rightLinearGrammar = arrayOf(
 //            "S->ABc",
-//            "A->a|$",
-//            "B->b|$"
+//            "A->a|ε",
+//            "B->b|ε"
 //    )
     val mp = LinkedHashMap<String, Array<String>>()
     try {

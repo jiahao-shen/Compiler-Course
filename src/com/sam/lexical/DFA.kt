@@ -20,7 +20,7 @@ class DFA(private var nfaGraph: Array<Vector<Pair>?>?, var characterSet: Set<Cha
                 if (!edgeSet.contains(edge) && pair.ch == ch) {
                     edgeSet.add(edge)
                     st.add(pair.v)
-                    dfs(pair.v, '$')
+                    dfs(pair.v, 'ε')
                 }
             }
         }
@@ -38,7 +38,7 @@ class DFA(private var nfaGraph: Array<Vector<Pair>?>?, var characterSet: Set<Cha
         st = MyHashSet()
         st.add(1)
         st.state = ++dfaNode
-        dfs(1, '$')
+        dfs(1, 'ε')
         checkIsFinalState(st, dfaNode)
         sst.add(st)
         queue.add(st)
@@ -80,19 +80,29 @@ class DFA(private var nfaGraph: Array<Vector<Pair>?>?, var characterSet: Set<Cha
 
     fun outputDFA() {
         toStateMatrix()
+        allNodes.sortWith(Comparator { o1, o2 ->
+            if (o1.u == o2.u)
+                o1.v - o2.v
+            else
+                o1.u - o2.u
+        })
         for (edge in allNodes) {
             println(edge)
         }
     }
 }
 fun main(args: Array<String>) {
-    val scan = Scanner(System.`in`)
-    while (true) {
-        val regex = scan.next()
-        if (regex == null || regex == "")
-            break
+    val regexList = ArrayList<String>()
+    regexList.add("0*(100*)*0*")
+    regexList.add("1(1010*|1(010)*1)*0")
+    regexList.add("1(0|1)*101")
+    regexList.add("0*1*(010)0*1*")
+    for (regex in regexList) {
         val nfa = NFA(regex)
         val dfa = DFA(nfa.getNFAGraphics(), nfa.characterSet, nfa.finalState)
+        println(regex)
+        println("对应的DFA(未最小化)如下:")
         dfa.outputDFA()
+        println()
     }
 }
