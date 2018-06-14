@@ -144,16 +144,22 @@ class Production(private var productions: ArrayList<Grammar>) {
 }
 
 fun main(args: Array<String>) {
-    val grammarList = ArrayList<Grammar>()
-//    grammarList.add(Grammar("S", "Qc|c"))
-//    grammarList.add(Grammar("Q", "Rb|b"))
-//    grammarList.add(Grammar("R", "Sa|a"))
-    grammarList.add(Grammar("E", "E+T|T"))
-    grammarList.add(Grammar("T", "T*F|F"))
-    grammarList.add(Grammar("F", "(E)|i"))
-    for (item in grammarList) {
-        println(item)
+    val productionList = ArrayList<ArrayList<Grammar>>()
+    val grammarList1 = ArrayList<Grammar>()
+    grammarList1.add(Grammar("S", "Qc|c"))
+    grammarList1.add(Grammar("Q", "Rb|b"))
+    grammarList1.add(Grammar("R", "Sa|a"))
+    val grammarList2 = ArrayList<Grammar>()
+    grammarList2.add(Grammar("E", "E+T|T"))
+    grammarList2.add(Grammar("T", "T*F|F"))
+    grammarList2.add(Grammar("F", "(E)|i"))
+    productionList.add(grammarList1)
+    productionList.add(grammarList2)
+    for (grammarList in productionList) {
+        for (item in grammarList)
+            println(item)
+        val production = Production(grammarList)
+        production.removeLeftRecursion()
+        println()
     }
-    val production = Production(grammarList)
-    production.removeLeftRecursion()
 }
