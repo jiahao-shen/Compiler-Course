@@ -151,6 +151,9 @@ fun main(args: Array<String>) {
     grammarList.add(Grammar("E", "E+T|T"))
     grammarList.add(Grammar("T", "T*F|F"))
     grammarList.add(Grammar("F", "(E)|i"))
+    for (item in grammarList) {
+        println(item)
+    }
     val production = Production(grammarList)
     production.removeLeftRecursion()
 }
