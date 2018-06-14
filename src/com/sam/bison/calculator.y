@@ -6,9 +6,7 @@
 %left    '^'
 %right   '@''~'
 %left    '!'
-
 %{
-
     #include <stdio.h>   
     #include <math.h>
     #define YYSTYPE double
@@ -18,11 +16,9 @@
 
     double sym[26];
 %}
-
 %%
 program:
     program statement '\n'
-    |
     ;
 statement:
      expr    {printf("%lf\n", $1);}
@@ -50,11 +46,9 @@ expr:
     ;
 
 %%
-
 void yyerror(char* s) {
     fprintf(stderr, "%s\n", s);
 }
-
 int main(void) {
     yyparse();
     return 0;

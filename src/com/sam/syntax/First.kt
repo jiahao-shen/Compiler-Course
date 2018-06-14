@@ -62,6 +62,9 @@ fun main(args: Array<String>) {
 //    val rightLinearGrammar = arrayOf("S->ABc", "A->a|ε", "B->b")
     val mp = LinkedHashMap<String, Array<String>>()
     try {
+        for (item in rightLinearGrammar) {
+            println(item)
+        }
         for (i in rightLinearGrammar.indices) {
             val split1 = rightLinearGrammar[i].split("->".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
             val split2 = split1[1].split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()

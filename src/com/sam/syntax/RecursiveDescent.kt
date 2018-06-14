@@ -30,7 +30,6 @@ class RecursiveDescent(private var str: String) {
             tEquation()
             epEquation()
         } else {
-            println("匹配失败")
             flag = false
         }
     }
@@ -47,7 +46,6 @@ class RecursiveDescent(private var str: String) {
             epEquation()
         } else if (data[n] == ")" || data[n] == "#") {
         } else {
-            println("匹配失败")
             flag = false
         }
     }
@@ -58,7 +56,6 @@ class RecursiveDescent(private var str: String) {
             fEquation()
             tpEquation()
         } else {
-            println("匹配失败")
             flag = false
         }
     }
@@ -75,7 +72,6 @@ class RecursiveDescent(private var str: String) {
             tpEquation()
         } else if (data[n] == "+" || data[n] == "-" || data[n] == ")" || data[n] == "#") {
         } else {
-            println("匹配失败")
             flag = false
         }
     }
@@ -90,7 +86,6 @@ class RecursiveDescent(private var str: String) {
             }
             data[n] == "i" -> match("i")
             else -> {
-                println("匹配失败")
                 flag = false
             }
         }
@@ -101,7 +96,6 @@ class RecursiveDescent(private var str: String) {
         if (data[n] == string) {
             n++
         } else {
-            println("匹配失败")
             flag = false
         }
     }
@@ -148,10 +142,13 @@ class RecursiveDescent(private var str: String) {
         if (z != y) {
             println("表达式左右括号不匹配,请检查表达式")
             flag = false
+            return
         }
         eEquation()
         if (flag)
             println("匹配成功")
+        else
+            println("匹配失败")
     }
 }
 fun main(args: Array<String>) {
@@ -161,6 +158,7 @@ fun main(args: Array<String>) {
         val str = scan.nextLine()
         if (str == "exit")
             break
+        check@
         RecursiveDescent(str)
         println()
     }

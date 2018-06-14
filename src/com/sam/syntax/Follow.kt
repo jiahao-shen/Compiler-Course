@@ -36,7 +36,7 @@ class Follow(private var mp: Map<String, Array<String>>, private var first: Map<
                         continue
                     }
                     index += currentNode.length
-                    if (index == rightNodes[i].length) {//末尾的非终结点, A->@B
+                    if (index == rightNodes[i].length) {
                         if (follow[leftNode] == null)
                             findFollow(leftNode)
                         if (follow[currentNode] == null) {
@@ -127,6 +127,9 @@ fun main(args: Array<String>) {
 //    )
     val mp = LinkedHashMap<String, Array<String>>()
     try {
+        for (item in rightLinearGrammar) {
+            println(item)
+        }
         for (i in rightLinearGrammar.indices) {
             val split1 = rightLinearGrammar[i].split("->".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
             val split2 = split1[1].split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
